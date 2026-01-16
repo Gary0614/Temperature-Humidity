@@ -1,0 +1,5 @@
+../Core/APP/led_task.c:28:6:LED_Task_Init	1
+../Core/APP/led_task.c:42:6:LED_Task_SetMode	3
+../Core/APP/led_task.c:53:6:LED_Task_SetError	3
+../Core/APP/led_task.c:62:6:LED_Task_Tick	1
+../Core/APP/led_task.c:66:6:LED_Task_Loop	14

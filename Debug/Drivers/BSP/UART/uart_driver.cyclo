@@ -1,0 +1,2 @@
+../Drivers/BSP/UART/uart_driver.c:10:19:UART_ReceiveString	1
+../Drivers/BSP/UART/uart_driver.c:17:19:UART_SendString	1

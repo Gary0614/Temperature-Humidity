@@ -1,0 +1,8 @@
+../Core/APP/myuart.c:26:6:Uart1_ReceiveToIdle	1
+../Core/APP/myuart.c:31:13:remove_crlf	3
+../Core/APP/myuart.c:41:6:Uart_CmdLed	6
+../Core/APP/myuart.c:60:6:Uart_CmdGetTemp	1
+../Core/APP/myuart.c:74:6:Uart_CmdDispatch	3
+../Core/APP/myuart.c:87:6:command_parse	1
+../Core/APP/myuart.c:100:6:Uart_Task	4
+../Core/APP/myuart.c:111:6:HAL_UARTEx_RxEventCallback	2
