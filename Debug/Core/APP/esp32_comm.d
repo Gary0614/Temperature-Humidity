@@ -1,4 +1,5 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Core/APP/esp32_comm.o: ../Core/APP/esp32_comm.c ../Core/APP/esp32_comm.h \
+ ../Core/Inc/usart.h ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -25,17 +26,13 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Core/Inc/dma.h ../Core/Inc/main.h ../Core/Inc/i2c.h ../Core/Inc/tim.h \
- ../Core/Inc/usart.h ../Core/Inc/gpio.h \
- E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/led_task.h \
+ ../Core/APP/myuart.h \
  E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Drivers/BSP/LED/LED.h \
- ../Core/Inc/OLED.h \
+ ../Core/Inc/gpio.h \
  E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Drivers/BSP/UART/uart_driver.h \
- E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Drivers/BSP/SHT31/sht31.h \
- E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/myuart.h \
- E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/esp32_comm.h \
- E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/myuart.h \
- E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/led_task.h
+ ../Core/APP/led_task.h
+../Core/APP/esp32_comm.h:
+../Core/Inc/usart.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -63,18 +60,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
-../Core/Inc/dma.h:
-../Core/Inc/main.h:
-../Core/Inc/i2c.h:
-../Core/Inc/tim.h:
-../Core/Inc/usart.h:
-../Core/Inc/gpio.h:
-E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/led_task.h:
+../Core/APP/myuart.h:
 E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Drivers/BSP/LED/LED.h:
-../Core/Inc/OLED.h:
+../Core/Inc/gpio.h:
 E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Drivers/BSP/UART/uart_driver.h:
-E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Drivers/BSP/SHT31/sht31.h:
-E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/myuart.h:
-E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/esp32_comm.h:
-E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/myuart.h:
-E:/Code/CubeIDE/STM32F103C8T6_Structdemo/Core/APP/led_task.h:
+../Core/APP/led_task.h:

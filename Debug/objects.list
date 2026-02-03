@@ -1,3 +1,4 @@
+"./Core/APP/esp32_comm.o"
 "./Core/APP/led_task.o"
 "./Core/APP/myuart.o"
 "./Core/Src/OLED.o"

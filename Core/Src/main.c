@@ -34,6 +34,7 @@
 #include "uart_driver.h"
 #include "sht31.h"
 #include "myuart.h"
+#include "esp32_comm.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,6 +65,7 @@ extern LED_t led_run;
 
 extern SHT31_t	SHT31_Dev_t;
 
+esp32_state_t ESP32_t;
 
 /* USER CODE END PV */
 
@@ -136,6 +138,7 @@ int main(void)
 
 	//SHT31 温湿度传感器初始化
 	SHT31_Init(&SHT31_Dev_t, &hi2c2, FastPeriodicDataModa);
+
 	//开启SHT31 周期接收数据模式
 //	SHT31_NormalPeriodicDataModa();
 //	SHT31_FastPeriodicDataModa();
@@ -144,6 +147,9 @@ int main(void)
 	//获取SHT31数据
 //	SHT31_SendTwoCmd(0xE0, 0x00);
 
+	//ESP32状态机初始化
+	ESP32_Init(&ESP32_t);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -151,8 +157,11 @@ int main(void)
 	while (1) {
 		LED_Task_Loop(&LED_run_t);
 		SHT31_Task(&SHT31_Dev_t);
-		Uart_Task();
-		HAL_Delay(300);
+//		Uart_Task();
+		OLED_ShowNum(3, 1, ESP32_t.state, 1);
+//		ESP32_Task(&ESP32_t);
+		Uart_CmdGetTemp();
+		HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -11,7 +11,12 @@
 #include "LED.h"
 #include "usart.h"
 #include "string.h"
+#include "uart_driver.h"
+
+#define uart1	huart1
+
 void Uart1_ReceiveToIdle ();
 void Uart_Task(void);
+void Uart_CmdGetTemp(void);
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size);
 #endif /* INC_MYUART_H_ */

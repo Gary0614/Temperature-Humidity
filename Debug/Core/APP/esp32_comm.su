@@ -1,0 +1,2 @@
+../Core/APP/esp32_comm.c:15:6:ESP32_Init	16	static
+../Core/APP/esp32_comm.c:24:6:ESP32_Task	16	static

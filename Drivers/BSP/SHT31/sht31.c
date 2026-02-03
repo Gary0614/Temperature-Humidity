@@ -29,22 +29,20 @@ void SHT31_SendTwoCmd(uint8_t MSB, uint8_t LSB){
 	HAL_Delay(20);
 }
 
-
-
-void SHT31_NormalPeriodicDataModa(void){
-	uint8_t CmdData[2] = {0x21, 0x30};
-	HAL_I2C_Master_Transmit(SHT31_I2C, SHT31_ADDRESS << 1, CmdData, sizeof(CmdData), 0xff);
-}
-
-void SHT31_FastPeriodicDataModa(void){
-	uint8_t CmdData[2] = {0x27, 0x37};
-	HAL_I2C_Master_Transmit(SHT31_I2C, SHT31_ADDRESS << 1, CmdData, sizeof(CmdData), 0xff);
-}
-
-void SHT31_SlowPeriodicDataModa(void){
-	uint8_t CmdData[2] = {0x20, 0x32};
-	HAL_I2C_Master_Transmit(SHT31_I2C, SHT31_ADDRESS << 1, CmdData, sizeof(CmdData), 0xff);
-}
+//void SHT31_NormalPeriodicDataModa(void){
+//	uint8_t CmdData[2] = {0x21, 0x30};
+//	HAL_I2C_Master_Transmit(SHT31_I2C, SHT31_ADDRESS << 1, CmdData, sizeof(CmdData), 0xff);
+//}
+//
+//void SHT31_FastPeriodicDataModa(void){
+//	uint8_t CmdData[2] = {0x27, 0x37};
+//	HAL_I2C_Master_Transmit(SHT31_I2C, SHT31_ADDRESS << 1, CmdData, sizeof(CmdData), 0xff);
+//}
+//
+//void SHT31_SlowPeriodicDataModa(void){
+//	uint8_t CmdData[2] = {0x20, 0x32};
+//	HAL_I2C_Master_Transmit(SHT31_I2C, SHT31_ADDRESS << 1, CmdData, sizeof(CmdData), 0xff);
+//}
 
 void SHT31_Init(SHT31_t *dev, I2C_HandleTypeDef *hi2c, SHT31_PeriodicData_t	PeriodicData){
 	dev->hi2c 			= hi2c;
@@ -52,17 +50,9 @@ void SHT31_Init(SHT31_t *dev, I2C_HandleTypeDef *hi2c, SHT31_PeriodicData_t	Peri
 	dev->humidity 		= 0.0f;
 	dev->PeriodicData 	= PeriodicData;
 	dev->status 		= SHT31_OK;
+	dev->rate			= 7;
 
-	if(dev->PeriodicData == SlowPeriodicDataModa){
-		SHT31_SlowPeriodicDataModa();
-	}else if(dev->PeriodicData == NormalPeriodicDataModa){
-		SHT31_NormalPeriodicDataModa();
-	}else if(dev->PeriodicData == FastPeriodicDataModa){
-		SHT31_FastPeriodicDataModa();
-	}else{
-		return;
-	}
-
+	SHT31_SendTwoCmd(SHT31_PeriodRate[dev->rate][0], SHT31_PeriodRate[dev->rate][1]);
 
 	SHT31_SendTwoCmd(0xE0, 0x00);	//获取SHT31数据
 }
@@ -114,8 +104,14 @@ void SHT31_Task(SHT31_t *dev){
 		sizeof(rbuf), HAL_MAX_DELAY)) {
 		if (GXHT3L_Dat_To_Float(rbuf, &dev->temperature, &dev->humidity) == 0) {
 			//printf("temperature = %f, humidity = %f\n", temperature, humidity);
-			OLED_ShowNum(3, 2, dev->humidity, 2);
-			OLED_ShowNum(2, 2, dev->temperature, 2);
+
+			OLED_ShowNum(2, 8, dev->humidity, 2);
+			OLED_ShowString(2, 10, ".");
+			OLED_ShowNum(2, 11, (int)(dev->humidity * 100) % 100, 2);
+
+			OLED_ShowNum(2, 1, dev->temperature, 2);
+			OLED_ShowString(2, 3, ".");
+			OLED_ShowNum(2, 4, (int)(dev->temperature * 100) % 100, 2);
 
 			OLED_ShowString(4, 1, "success!");
 		} else {

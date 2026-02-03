@@ -5,26 +5,26 @@
  *      Author: lll
  */
 #include "myuart.h"
-#include "uart_driver.h"
+
 #include "led_task.h"
 #include "sht31.h"
 #include "stdio.h"
+
 #define	RX_BUF_MAX	64
 
-extern DMA_HandleTypeDef hdma_usart1_rx;
 
+extern DMA_HandleTypeDef hdma_usart1_rx;
 extern LED_TaskCtx_t LED_run_t;
 extern SHT31_t	SHT31_Dev_t;
 
 uint8_t receiveData[RX_BUF_MAX];
-
 uint16_t uart_rx_len;
 
 volatile uint8_t uart_rx_flag = 0;
 
 //接受不定长数据
 void Uart1_ReceiveToIdle() {
-	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, receiveData, sizeof(receiveData));
+	HAL_UARTEx_ReceiveToIdle_DMA(&uart1, receiveData, sizeof(receiveData));
 	__HAL_DMA_DISABLE_IT(&hdma_usart1_rx, DMA_IT_HT);
 }
 
@@ -63,9 +63,9 @@ void Uart_CmdGetTemp(void)
     char tx_buf[64];
 
     snprintf(tx_buf, sizeof(tx_buf),
-             "$TEMP:%.1f,HUM:%.1f#\r\n",
-			 SHT31_Dev_t.temperature,
-			 SHT31_Dev_t.humidity);
+             "$TEMP:%d,HUM:%d#\r\n",
+			 (int)(SHT31_Dev_t.temperature * 100),
+			 (int)(SHT31_Dev_t.humidity * 100));
 
     UART_SendString(tx_buf);
 }
@@ -107,13 +107,23 @@ void Uart_Task(void) {
 	command_parse((char*) receiveData, uart_rx_len);
 }
 
+/*    -----发送数据给ESP32-----    */
+void ESP32_Send_SHT31(int16_t temp_x100, int16_t humi_x100)
+{
+	char buf[64];
+	int len = snprintf(buf, sizeof(buf), "$DATA:%d,%d\r\n", temp_x100, humi_x100);
 
+	HAL_UART_Transmit_DMA(&uart1, (uint8_t *)buf, len);
+}
+
+
+/* ----- UART 回调函数-----  */
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
-		if (huart == &huart1) {
+		if (huart == &uart1) {
 			receiveData[Size] = '\0';  // 关键：补 \0
 			uart_rx_len = Size;
 			uart_rx_flag = 1; //接受标志位
-			HAL_UARTEx_ReceiveToIdle_DMA(&huart1, receiveData, sizeof(receiveData));
+			HAL_UARTEx_ReceiveToIdle_DMA(&uart1, receiveData, sizeof(receiveData));
 			__HAL_DMA_DISABLE_IT(&hdma_usart1_rx, DMA_IT_HT);
 		}
 	}

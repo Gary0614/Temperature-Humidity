@@ -1,8 +1,5 @@
 ../Drivers/BSP/SHT31/sht31.c:26:6:SHT31_SendTwoCmd	1
-../Drivers/BSP/SHT31/sht31.c:34:6:SHT31_NormalPeriodicDataModa	1
-../Drivers/BSP/SHT31/sht31.c:39:6:SHT31_FastPeriodicDataModa	1
-../Drivers/BSP/SHT31/sht31.c:44:6:SHT31_SlowPeriodicDataModa	1
-../Drivers/BSP/SHT31/sht31.c:49:6:SHT31_Init	4
-../Drivers/BSP/SHT31/sht31.c:70:16:CheckCrc8	4
-../Drivers/BSP/SHT31/sht31.c:91:16:GXHT3L_Dat_To_Float	3
-../Drivers/BSP/SHT31/sht31.c:111:6:SHT31_Task	3
+../Drivers/BSP/SHT31/sht31.c:47:6:SHT31_Init	1
+../Drivers/BSP/SHT31/sht31.c:60:16:CheckCrc8	4
+../Drivers/BSP/SHT31/sht31.c:81:16:GXHT3L_Dat_To_Float	3
+../Drivers/BSP/SHT31/sht31.c:101:6:SHT31_Task	3
